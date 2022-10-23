@@ -2,7 +2,8 @@ import LogoSearch from "./LogoSearch"
 import Navbar from "./Navbar"
 import MusicPlay from "./MusicPlay"
 
-export default function Layout({children}) {
+function Layout({children}) {
+
     return (
     <div className='flex flex-col w-full'>
         <LogoSearch/>
@@ -17,6 +18,9 @@ export default function Layout({children}) {
         
     </div>
 )
-      
-      
-  }
+}
+
+
+
+
+export default Layout

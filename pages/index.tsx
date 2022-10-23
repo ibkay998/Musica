@@ -6,8 +6,15 @@ import Header from '../components/Header'
 import TopChart from '../components/TopChart'
 import NewRelease from '../components/NewRelease'
 import PopularArea from '../components/PopularArea'
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
+import { storeWrapper } from '../store/index';
+import { fetchMusic } from '../store/fetchMusicSlice'
+import { useDispatch,useSelector } from 'react-redux'
+import { EnhancedStore } from '@reduxjs/toolkit'
 
 const Home: NextPage = () => {
+  
+  
   return (
     <div className="w-full">
       <Head>
@@ -29,5 +36,16 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+
+
+export const getStaticProps: GetStaticProps = storeWrapper.getStaticProps((store)  => async () => {
+  const data = await fetch('https://musica-api.up.railway.app/new');
+  console.log("this function ran")
+  const posts = await data.json();
+  store.dispatch(fetchMusic(posts));
+  
+});
+
 
 export default Home

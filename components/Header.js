@@ -5,7 +5,9 @@ import guy from "../public/guy.png"
 import Image from "next/image"
 import Wave from "./Wave"
 
+
 export default function Header() {
+    
     return (
     <div className='flex h-[350px] md:h-[373px] w-full md:w-3/5 md:mt-7 md:ml-3 overflow-clip bg-[#609EAF] rounded-3xl justify-between font-quicksand relative'>
         <div className="flex flex-col m-6 justify-between">

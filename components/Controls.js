@@ -7,7 +7,7 @@ import previous from "../public/previous.png"
 import next from "../public/next.png"
 
 
-export default function Controls() {
+export default function Controls({setIsPlaying,isPlaying,SkipSong}) {
     return (
     
         <div className='flex'>
@@ -15,13 +15,19 @@ export default function Controls() {
                 <Image src={shuffle} alt=""/>
             </div>
             <div className="mt-5">
-                <Image src={previous} alt=""/>
+                <button onClick={()=>SkipSong(false)} >
+                    <Image src={previous} alt=""/>
+                </button>
             </div>
             <div>
-                <Image src={play} alt=""/>
+                <button onClick={() => setIsPlaying(!isPlaying)}>
+                    <Image src={play} alt=""/>
+                </button> 
             </div>
             <div className="mt-5">
-                <Image src={next} alt=""/>
+                <button onClick={()=>SkipSong()} >
+                    <Image src={next} alt=""/>
+                </button>
             </div>
             
             

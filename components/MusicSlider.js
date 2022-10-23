@@ -8,10 +8,10 @@ import {
     SliderMark,
   } from '@chakra-ui/react'
 
-export default function MusicSlider() {
+export default function MusicSlider({onChange,setSliderValue,sliderValue}) {
     return (
         <div className="flex items-center w-9/12">
-            <Slider aria-label='slider-ex-1' defaultValue={30}>
+            <Slider aria-label='slider-ex-1' defaultValue={0} onChange={onChange} value={sliderValue}>
                 <SliderTrack>
                     <SliderFilledTrack />
                 </SliderTrack>

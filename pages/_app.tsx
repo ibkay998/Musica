@@ -3,6 +3,8 @@ import '../styles/globals.css'
 import Layout from '../components/Layout'
 import { ChakraProvider } from '@chakra-ui/react'
 import { extendTheme } from '@chakra-ui/react'
+import { storeWrapper } from '../store/index'
+import { Provider } from 'react-redux'
 
 const theme = extendTheme({
   styles: {
@@ -23,13 +25,18 @@ const theme = extendTheme({
   },
 })
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
+    const { store, props } = storeWrapper.useWrappedStore(pageProps);
     return (
-      <ChakraProvider theme={theme}>
+      <Provider store={store}>
+        <ChakraProvider theme={theme}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
-      </ChakraProvider>
+        </ChakraProvider>
+      </Provider>
         
-        )
+      )
 }
+
+export default MyApp
