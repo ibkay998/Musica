@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from "react-redux";
 import music from '../pages/api/getMusicApi';
 import musicList from '../data/musicList';
 import Image from 'next/image';
@@ -8,6 +8,8 @@ import Controls from './Controls';
 import MusicSlider from './MusicSlider';
 import { storeWrapper } from '../store/index';
 import { countNumber } from '../store/testingSlice'
+import { changeCurrentTrack,changeIsPlaying,playMusic,changePlaying } from '../store/fetchMusicSlice';
+
 import {
   Slider,
   SliderTrack,
@@ -16,46 +18,39 @@ import {
   SliderMark,
 } from '@chakra-ui/react';
 
-function MusicPlay({posts,datas,res}) {
-  const [playing, setPlaying] = useState(false);
+function MusicPlay() {
   const [sliderValue, setSliderValue] = useState(0);
   const [audioValue, setAudioValue] = useState(30);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const toggle = () => setPlaying(!playing);
-  const [data, setData] = useState([]);
+  const data = useSelector(state => state.fetchMusic.currentTrack)
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch()
   const audio = useRef(null);
-  const news = useSelector(state => state.musicList)
-  const fors = useSelector(state => state.count)
-
-  console.log(news,"this is it",fors)
-
+  let isPlayingFromStore = useSelector(state => state.fetchMusic.isPlaying)
+  let trackState = useSelector(state => state.fetchMusic.Track)
+  let current = useSelector(state => state.playing.currentPlaying)
+  let currentIndex = useSelector(state => state.fetchMusic.indexPlaying)
+  
   const SkipSong = (forwards = true) => {
+    let temp = currentIndex;
     if (forwards) {
-      setCurrentSongIndex(() => {
-        let temp = currentSongIndex;
         temp++;
-
         if (temp > data.length - 1) {
           temp = 0;
         }
+    
+    dispatch(changePlaying(["general",temp]))
 
-        return temp;
-      });
     } else {
-      setCurrentSongIndex(() => {
-        let temp = currentSongIndex;
-        temp--;
-
-        if (temp < 0) {
-          temp = data.length - 1;
-        }
-
-        return temp;
-      });
+      temp--
+      if (temp < 0) {
+        temp = data.length - 1;
+      }
+      dispatch(changePlaying(["general",temp]))
+        
+      
     }
   };
 
@@ -77,8 +72,7 @@ function MusicPlay({posts,datas,res}) {
   }
 
   useEffect(() => {
-    if (isPlaying) {
-
+    if (isPlayingFromStore) {
       audio.current.play();
       audio.current.onended = SkipSong;
     } else {
@@ -86,26 +80,11 @@ function MusicPlay({posts,datas,res}) {
     }
   });
 
-  useEffect(() => {
-    axios({
-      method: 'get',
-      url: 'https://musica-api.up.railway.app/new',
-      params: {},
-    })
-      .then(function (response) {
-        // handle success
-        setData(response.data);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      });
-  }, []);
 
   return (
     <div className='flex bottom-0 h-[125px] border-t-2 border-gray-200 bg-[#1E1E1E] opacity-95 md:fixed justify-between w-full items-center'>
       <audio
-        src={data[currentSongIndex]?.audio}
+        src={data[currentIndex]?.audio}
         ref={audio}
         onLoadedData={(e) => {
           setDuration(e.currentTarget.duration.toFixed(2));
@@ -118,8 +97,6 @@ function MusicPlay({posts,datas,res}) {
       <div className='flex flex-col w-9/12 items-center'>
         <Controls
           SkipSong={SkipSong}
-          setIsPlaying={setIsPlaying}
-          isPlaying={isPlaying}
         />
         <MusicSlider setSliderValue={setSliderValue} onChange={onChange} sliderValue={sliderValue}/>
       </div>
