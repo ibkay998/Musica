@@ -4,7 +4,7 @@ import radio from '../public/radio.png';
 import profile from '../public/profile.png';
 import playlist from '../public/playlist.png';
 import videos from '../public/videos.png';
-import logout from '../public/logout.png';
+import logout from '../public/Logout.png';
 import Link from 'next/link';
 
 export default function Navbar() {
