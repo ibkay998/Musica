@@ -4,6 +4,7 @@ import frame from "../public/Frame.png"
 import guy from "../public/guy.png"
 import Image from "next/image"
 import Wave from "./Wave"
+import Link from "next/link"
 import TopChartComponent from "./TopChartComponet"
 import { useSelector,useDispatch } from "react-redux"
 import {changePlaying,changeCurrentTrack } from '../store/fetchMusicSlice'
@@ -22,9 +23,9 @@ export default function TopChart() {
         
         <h1 className="text-2xl font-bold text-[24px] font-quicksand">Top Chart</h1>
         <div className="flex md:flex-col overflow-scroll ml-[-10px] mt-3 ">
-
+            {/* data=[{title:"ibukun",cover:"dkls"},{title:"eze",cover:"dslkds"},{title:ekemini,cover:"dkswkd"}] */}
             {data.map((item,index)=>(
-                <TopChartComponent key={index} handleTopChartFunction={handleTopChartFunction} id ={index} name={item?.title} subname="Sean swadder" time="2:34:45" image={item?.cover}/>
+                <TopChartComponent key={index} id ={index} name={item?.title} subname="Sean swadder" time="2:34:45" image={item?.cover}/>
             ))}
             
         

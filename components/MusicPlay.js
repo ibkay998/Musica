@@ -93,7 +93,13 @@ function MusicPlay() {
     
     
       ></audio>
-      <div>Testing 1</div>
+      <div className='flex ml-4'>
+        <Image className='rounded-lg' src={data[currentIndex]?.cover} alt="testing" width={49} height={49}/>
+        <div className='flex flex-col ml-2'>
+          <h1 className='font-quicksand font-bold text-[14px]'>{data[currentIndex]?.title}</h1>
+          <h2 className='font-quicksand font-bold text-[10px]'>{data[currentIndex]?.artist}</h2>
+        </div>
+      </div>
       <div className='flex flex-col w-9/12 items-center'>
         <Controls
           SkipSong={SkipSong}
@@ -102,7 +108,7 @@ function MusicPlay() {
       </div>
 
       <div className='flex w-2/12'>
-        <Slider aria-label='slider-ex-1' defaultValue={30} onChange={onChangeVolume} audioValue={audioValue}>
+        <Slider aria-label='slider-ex-1' defaultValue={30} onChange={onChangeVolume} audiovalue={audioValue}>
           <SliderTrack>
             <SliderFilledTrack />
           </SliderTrack>

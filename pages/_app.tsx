@@ -5,6 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { extendTheme } from '@chakra-ui/react'
 import { storeWrapper } from '../store/index'
 import { Provider } from 'react-redux'
+import { AnimatePresence } from "framer-motion"
 
 const theme = extendTheme({
   styles: {
@@ -31,7 +32,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <ChakraProvider theme={theme}>
           <Layout>
-            <Component {...pageProps} />
+            <AnimatePresence
+                exitBeforeEnter
+                initial={false}
+                onExitComplete={() => window.scrollTo(0, 0)}
+            >
+                <Component {...pageProps} />
+            </AnimatePresence>
           </Layout>
         </ChakraProvider>
       </Provider>

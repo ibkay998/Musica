@@ -5,13 +5,14 @@ import profile from '../public/profile.png';
 import playlist from '../public/playlist.png';
 import videos from '../public/videos.png';
 import logout from '../public/logout.png';
+import Link from 'next/link';
 
 export default function Navbar() {
   return (
     <div className='hidden md:fixed md:flex w-[52px] md:flex-col text-white opacity-75 top-[78px]'>
       <div className='flex flex-col bg-[#1A1E1F] rounded-full p-4'>
         <div className='w-[22px] hover:text-yellow-500 cursor-pointer'>
-            <Image src={home} alt="" />
+            <Link href="/"><Image src={home} alt="" /></Link>
         </div>
         <div className='pt-3 cursor-pointer'>
             <Image src={playlist} alt="" />

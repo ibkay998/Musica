@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from "next-redux-wrapper";
 import shuffleList from "../utils/shuffleList"
 
@@ -13,6 +14,7 @@ const initialState = {
   isPlaying: false,
   indexPlaying: 0,
 };
+
 
 const fetchMusicSlice = createSlice({
   name: "fetched",
@@ -36,6 +38,7 @@ const fetchMusicSlice = createSlice({
           }
           state.currentTrack = [...state.topTrackState]
           state.indexPlaying = action.payload[1]
+          state.isPlaying = true
         }else{
           if(state.Track==="topTrack"){
             state.Track = "general"
@@ -43,6 +46,7 @@ const fetchMusicSlice = createSlice({
           
           state.currentTrack = [...state.allTrackState]
           state.indexPlaying = action.payload[1]
+          state.isPlaying=true
         }
       }
       
