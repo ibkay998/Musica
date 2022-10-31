@@ -7,7 +7,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'musica-api.up.railway.app',
-        port: '',
         pathname: '/**',
       },
     ],

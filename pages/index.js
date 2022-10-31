@@ -1,4 +1,3 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -20,8 +19,7 @@ import { motion } from "framer-motion";
 
 
 
-const Home: NextPage = ({ posts}) => {
-  const { data, isFetching, error } = useGetWorldChartQuery()
+const Home = ({ posts}) => {
   const store = useStore();
   // console.log({ store: store.getState() }); // posts comming from the getStaticprops
   React.useEffect(() => {
@@ -54,7 +52,7 @@ const Home: NextPage = ({ posts}) => {
   );
 };
 
-export const getServerSideProps: GetStaticProps = storeWrapper.getStaticProps(
+export const getServerSideProps= storeWrapper.getStaticProps(
   (store) => async () => {
     const data = await fetch("https://musica-api.up.railway.app/new");
     const posts = await data.json();
