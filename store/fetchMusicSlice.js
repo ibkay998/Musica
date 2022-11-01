@@ -13,6 +13,8 @@ const initialState = {
   shuffled:false,
   isPlaying: false,
   indexPlaying: 0,
+  collection:[],
+  liked:[],
 };
 
 
@@ -80,6 +82,24 @@ const fetchMusicSlice = createSlice({
         state.Track="topTrack"
         state.currentTrack = [...state.topTrackState]
       }
+    },
+    addToLiked(state,action){
+      state.liked.push(action.payload)
+    },
+    removeFromLiked(state,action){
+      const index = state.liked.indexOf(action.payload);
+      if (index > -1) { 
+        state.liked.splice(index, 1); // 2nd parameter means remove one item only
+      }
+    },
+    addToCollections(state,action){
+      state.collection=[...action.payload]
+    },
+    removeFromCollections(state,action){
+      const index = state.collection.indexOf(action.payload);
+      if (index > -1) { // only splice array when item is found
+        state.collection.splice(index, 1); // 2nd parameter means remove one item only
+      }
     }
   },
   extraReducers: {
@@ -92,5 +112,5 @@ const fetchMusicSlice = createSlice({
   },
 });
 
-export const { fetchMusic,shuffleState,changeRepeat,playMusic,changeCurrentTrack,changeIsPlaying,changePlaying } = fetchMusicSlice.actions;
+export const { fetchMusic,shuffleState,changeRepeat,playMusic,changeCurrentTrack,changeIsPlaying,changePlaying,addToCollections,addToLiked,removeFromCollections,removeFromLiked } = fetchMusicSlice.actions;
 export default fetchMusicSlice.reducer;

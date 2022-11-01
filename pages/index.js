@@ -32,7 +32,7 @@ const Home = ({ posts}) => {
 
   return (
     <motion.div
-      className="flex flex-col w-full overflow-y-auto hide-scrollbar md:pl-20 mt-10 pr-4"
+      className="flex flex-col w-full overflow-y-auto hide-scrollbar"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 1 } }}
       exit={{ opacity: 0 }}

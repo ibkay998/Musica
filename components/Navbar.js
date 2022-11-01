@@ -15,7 +15,7 @@ export default function Navbar() {
             <Link href="/"><Image src={home} alt="" /></Link>
         </div>
         <div className='pt-3 cursor-pointer'>
-            <Image src={playlist} alt="" />
+            <Link href="/collections"><Image src={playlist} alt="" /></Link>
         </div>
         <div className='pt-3 cursor-pointer'>
             <Image src={radio} alt="" />

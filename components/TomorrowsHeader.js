@@ -7,9 +7,13 @@ import musicsquare from "../public/musicsquare.png"
 import heart from "../public/Heart.png"
 import Image from "next/image"
 import Wave from "./Wave"
+import { useSelector,useDispatch } from "react-redux"
+import {addToCollections } from '../store/fetchMusicSlice'
 
 
 export default function TomorrowsHeader() {
+    const dispatch = useDispatch()
+    const all = useSelector(state=>state.fetchMusic.globalMusicState)
     return (
     <div className='flex flex-col md:flex-row z-[10]'>
         <div className="">
